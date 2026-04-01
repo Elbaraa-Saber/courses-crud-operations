@@ -1,6 +1,6 @@
 const express = require('express');
-const { body } = require('express-validator');
 
+const validationSchema = require('../middlewares/validationSchema').validationSchema;
 
 const router = express.Router();
 
@@ -16,34 +16,12 @@ const {
 
 router.route('/')
         .get(getAllCorses )
-        .post( 
-        [
-            body('title')
-                .notEmpty()
-                .withMessage('Title is required')
-                .isLength({min:2})
-                .withMessage('Title at least 2 characters long'),
-            body('price')
-                .notEmpty()
-                .isInt()
-                .withMessage('Price is required')
-        ], createCourse );
+        .post( validationSchema(), createCourse );
 
 
 router.route('/:courseId')
     .get( getSingleCourse )
-    .patch(
-    [
-        body('title')
-            .notEmpty()
-            .withMessage("Title is required")
-            .isLength({min:2})
-            .withMessage('Title at least 2 characters long'),
-        body('price')
-            .notEmpty()
-            .isInt()
-            .withMessage('Price is required')
-    ], updateCourse )
+    .patch( validationSchema(), updateCourse )
     .delete(deleteCourse );
 
 
