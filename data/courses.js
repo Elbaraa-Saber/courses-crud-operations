@@ -1,3 +1,6 @@
+const express = require('express');
+
+
 const courses = [
     {
         id: 1,
@@ -11,4 +14,4 @@ const courses = [
     },
 ]
 
-module.exports = courses;
+module.exports = {courses};
