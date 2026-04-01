@@ -32,7 +32,7 @@ const createCourse = (req, res) =>
 }
 
 const updateCourse = (req, res) => {
-    const courseId = parseInt(req.params.coutseId);
+    const courseId = parseInt(req.params.courseId);
     const course = courses.find((course) => course.id === courseId);
     if (!course) {
         res.status(404).json({message: 'Course not fournd'});
@@ -43,8 +43,8 @@ const updateCourse = (req, res) => {
         res.status(400).json({errors: errors.array()});
         return;
     }
-    course.title = req.body.title;
-    course.price = req.body.price;
+    course.title = req.body.title ?? course.title;
+    course.price = req.body.price ?? course.price;
     return res.json(course);
 }
 
